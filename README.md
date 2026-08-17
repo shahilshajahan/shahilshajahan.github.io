@@ -20,7 +20,11 @@
 
 <h2 align="center">#TechEnthusiast</h2>
 
-<img align="right" alt="Coding" width="300" src="https://i.postimg.cc/CL981DpX/DEVELOPER.gif">
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=shahilshajahan&color=brightgreen" alt="Profile Views" width="160">
+</p>
+
+<img align="right" alt="Coding" width="300" src="https://i.postimg.cc/76Qy1pmX/PHONEPEUPI.png">
 
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -69,16 +73,6 @@ If you find my projects useful, you can support future development here:
 - 💙 PayPal → https://paypal.me/MohamedShahil
 
 Your support helps me dedicate more time to developing and maintaining open-source projects. Thank you! ❤️
-
-<div align="left" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-  <a href="https://buymeacoffee.com/shahils">
-    <img src="https://i.postimg.cc/SQdPYtnh/UPI.png" height=auto width="270" alt="shahils" />
-  </a>
- <br>
-  <a>
-    <img src="https://i.postimg.cc/wMrCJkh5/phonepe.png" height="290" width=auto />
-  </a>
-</div>
 
 <p>
 </p>
