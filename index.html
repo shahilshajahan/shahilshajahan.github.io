@@ -3,438 +3,978 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shahil Shajahan | Software Engineer</title>
-    <meta name="description" content="Portfolio of Shahil Shajahan, a Software Engineer specializing in Backend Systems, Automation, and Embedded Development.">
+    <title>Shahil Shajahan | Tech Enthusiast</title>
+    <meta name="description" content="Portfolio of Shahil Shajahan, Tech Enthusiast.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Script run immediately to prevent white flash on load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP for scroll-driven & 3D motion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Theme Detection Script -->
     <script>
-        // Check local storage first, then system preference
-        const savedTheme = localStorage.getItem('shahil_theme');
-        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-        if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
-            document.documentElement.classList.add('light-mode');
+        const savedTheme = localStorage.getItem('shahil_heynesh_theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark-theme');
         }
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-        
-        /* THEME VARIABLES - DARK MODE (DEFAULT) */
+        /* CSS VARIABLES FOR LIGHT & DARK MODE */
         :root {
-            --bg-base: #03050a;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8; 
-            --glass-bg: rgba(16, 23, 42, 0.5);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --modal-bg: rgba(10, 15, 30, 0.95);
-            --overlay-color: rgba(5, 8, 20, 0.85); 
-            --particle-color: 0x4facfe;
-        }
+            --bg-color: #dfbcb0; 
+            --text-color: #111111;
+            --accent-color: #e8ff00;
+            --sidebar-bg: #ebd4ca;
+            --border-color: rgba(0,0,0,0.15);
+            --card-bg: #ffffff;
+            --text-muted: #4f4f4f;
+            --card-border: rgba(0,0,0,0.08);
+            --invert-btn-bg: #111111;
+            --invert-btn-text: #ffffff;
+            --project-sec-bg: #ecdcd4;
+            --badge-bg: #111111;
+            --badge-text: #ffffff;
 
-        /* LIGHT MODE OVERRIDES - CONTROLLED BY CLASS NOW */
-        .light-mode {
-            --bg-base: #f1f5f9; 
-            --text-main: #0f172a; 
-            --text-muted: #334155; 
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(0, 0, 0, 0.1);
-            --modal-bg: rgba(255, 255, 255, 0.95);
-            --overlay-color: rgba(248, 250, 252, 0.96); 
-            --particle-color: 0x0ea5e9; 
-        }
-        
-        .light-mode .gradient-text { 
-            background: linear-gradient(to right, #0369a1, #4338ca, #7e22ce) !important; 
-            -webkit-background-clip: text !important; 
-            -webkit-text-fill-color: transparent !important; 
-        }
-        
-        .light-mode .hero-text { 
-            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15)) !important; 
-            text-shadow: none !important; 
-        }
-        
-        .light-mode .text-slate-300 { color: #334155 !important; font-weight: 500; }
-        .light-mode .text-white { color: #0f172a !important; }
-        .light-mode .text-purple-500 { color: #6d28d9 !important; font-weight: 700; }
+            /* HERO TEXT SPECIFIC */
+            --hero-text: #ffffff;
+            --hero-text-muted: #f0f0f0;
+            --hero-shadow: 0px 4px 20px rgba(0,0,0,0.25), 0px 2px 5px rgba(0,0,0,0.4);
 
-        .light-mode .bg-slate-800 { background-color: rgba(0,0,0,0.05) !important; color: #0f172a !important; }
-        .light-mode .bg-white\/5 { background-color: rgba(0,0,0,0.05) !important; border-color: rgba(0,0,0,0.1) !important; color: #0f172a !important; }
-        .light-mode .border-white\/10 { border-color: rgba(0,0,0,0.1) !important; }
-        .light-mode .bg-slate-900\/20 { background-color: rgba(255,255,255,0.2) !important; }
-        .light-mode #modal-github-link { background-color: #0f172a !important; color: white !important; }
-        .light-mode #modal-github-link:hover { background-color: #334155 !important; }
-        .light-mode .text-slate-500 { color: #64748b !important; }
-        .light-mode .bg-black\/60 { background-color: rgba(255,255,255,0.8) !important; } 
-
-        body, html { 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Space Grotesk', sans-serif; 
-            color: var(--text-main); 
-            overflow-x: hidden; 
-            scroll-behavior: smooth; 
+            /* PROJECT ARROW SPECIFIC FOR LIGHT THEME */
+            --arrow-bg: #111111;
+            --arrow-color: #ffffff;
             
-            background: 
-                linear-gradient(var(--overlay-color), var(--overlay-color)),
-                url('https://media.licdn.com/dms/image/v2/D5616AQEFd2DK1C9gaw/profile-displaybackgroundimage-shrink_200_800/B56Z.LKdCmGQAQ-/0/1784746201559?e=1786579200&v=beta&t=m_pz-KcI-GlkIL6eY0d_5DRkz9h2c29Rpv3_lgSHUUg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            background-color: var(--bg-base); 
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-        
-        h1, h2, h3, h4, p { color: inherit; }
-        .text-slate-400 { color: var(--text-muted) !important; }
-        
-        /* Dark Mode Hero Text shadow */
-        .hero-text { 
-            filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.6)); 
-            text-shadow: none; 
+            /* SECTION TAG BUTTON STYLE */
+            --tag-bg: var(--accent-color);
+            --tag-text: #111111;
+            --tag-border: var(--accent-color); 
         }
 
-        #bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.9; pointer-events: none; }
+        .dark-theme {
+            --bg-color: #111111;
+            --text-color: #f5f5f5;
+            --accent-color: #e8ff00;
+            --sidebar-bg: #1a1a1a;
+            --border-color: rgba(255,255,255,0.1);
+            --card-bg: #222222;
+            --text-muted: #aaaaaa;
+            --card-border: rgba(255,255,255,0.05);
+            --invert-btn-bg: #ffffff;
+            --invert-btn-text: #111111;
+            --project-sec-bg: #181818;
+            --badge-bg: #ffffff;
+            --badge-text: #111111;
+
+            /* HERO TEXT SPECIFIC */
+            --hero-text: #f5f5f5;
+            --hero-text-muted: #aaaaaa;
+            --hero-shadow: none;
+
+            /* PROJECT ARROW SPECIFIC FOR DARK THEME */
+            --arrow-bg: #333333;
+            --arrow-color: #f5f5f5;
+            
+            /* SECTION TAG BUTTON STYLE (FIXED: Neon background in Dark Mode too) */
+            --tag-bg: var(--accent-color);
+            --tag-text: #111111;
+            --tag-border: var(--accent-color);
+        }
+
+        /* HIDE SCROLLBAR FOR MOBILE TOP NAVBAR */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 3D CUSTOM CURSOR */
+        @media (pointer: fine) {
+            body, a, button, summary, input { cursor: none !important; }
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle at 30% 30%, #ffffff 0%, var(--accent-color) 40%, #7a8a00 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.3), inset -2px -2px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background 0.2s;
+        }
+
+        .custom-cursor.cursor-hover {
+            transform: translate(-50%, -50%) scale(1.8);
+            background: radial-gradient(circle at 30% 30%, #ffffff 0%, #dddddd 40%, #888888 100%);
+            box-shadow: 4px 8px 15px rgba(0,0,0,0.4), inset -2px -2px 6px rgba(0,0,0,0.2);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--sidebar-bg); }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+        .font-anton { font-family: 'Anton', sans-serif; }
         
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); transition: background 0.3s ease; }
-        .glass-modal { background: var(--modal-bg); backdrop-filter: blur(24px); border: 1px solid var(--glass-border); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2); transition: background 0.3s ease; }
-        .gradient-text { background: linear-gradient(to right, #00f2fe, #4facfe, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: all 0.3s ease; }
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            border-right: 1.5px solid var(--border-color);
+            transition: background-color 0.4s ease, border-color 0.4s ease;
+        }
 
-        .profile-img-container { position: relative; width: 300px; height: 300px; border-radius: 50%; perspective: 1000px; animation: float 6s ease-in-out infinite; z-index: 10; }
-        .profile-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid transparent; box-shadow: 0 0 40px rgba(79, 172, 254, 0.4); }
-        .orbit-ring { position: absolute; inset: -20px; border-radius: 50%; border: 2px dashed rgba(79, 172, 254, 0.4); animation: spin 15s linear infinite; }
-        .orbit-ring-2 { position: absolute; inset: -45px; border-radius: 50%; border: 2px solid rgba(192, 132, 252, 0.2); animation: spin 20s linear infinite reverse; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+        }
+        .nav-link:hover, .nav-link.active { background-color: var(--accent-color); color: #111; }
 
-        .project-card { transform-style: preserve-3d; transform: perspective(1000px); transition: border-color 0.3s ease; }
-        .project-card:hover { border-color: rgba(79, 172, 254, 0.5); }
-        .card-image-wrapper { transform: translateZ(50px); }
-        .project-content { transform: translateZ(40px); }
+        /* 3D HERO SECTION */
+        .hero-section {
+            position: relative;
+            height: 38svh; 
+            min-height: 280px; 
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        .modal-overlay { opacity: 0; visibility: hidden; transition: all 0.4s ease; }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-content { transform: scale(0.9) translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); opacity: 1; }
+        @media (min-width: 768px) {
+            .hero-section {
+                height: 100vh; 
+                min-height: auto;
+            }
+        }
 
-        .custom-scroll::-webkit-scrollbar { width: 6px; }
-        .custom-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #4facfe; border-radius: 10px; }
+        .giant-text-bg {
+            position: absolute;
+            top: 32%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(6.5rem, 25vw, 30rem);
+            line-height: 0.8;
+            color: var(--accent-color);
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+            z-index: 1; 
+            opacity: 0.9;
+            transition: color 0.4s ease;
+            will-change: transform;
+        }
+
+        @media (min-width: 768px) {
+            .giant-text-bg {
+                top: 38%; 
+                font-size: clamp(8rem, 25vw, 30rem);
+            }
+        }
+
+        .hero-portrait-wrap {
+            position: absolute;
+            bottom: 0; 
+            right: 0;
+            height: 100%; 
+            width: 100%;
+            z-index: 10; 
+            transform-style: preserve-3d;
+            will-change: transform;
+            pointer-events: none;
+        }
+        
+        @media (min-width: 768px) { 
+            .hero-portrait-wrap { height: 85vh; width: auto; } 
+        }
+        @media (min-width: 1024px) { 
+            .hero-portrait-wrap { height: 95vh; } 
+        }
+
+        .hero-portrait { 
+            position: absolute; 
+            bottom: 0; 
+            right: -15%; 
+            height: 100%; 
+            width: auto; 
+            object-fit: contain;
+            object-position: right bottom; 
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));
+            will-change: transform;
+            pointer-events: none;
+            
+            -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+        }
+
+        @media (min-width: 768px) {
+            .hero-portrait { right: 0; max-width: none; position: relative; }
+        }
+
+        /* PROJECTS & CARDS */
+        .project-section-bg {
+            background-color: var(--project-sec-bg);
+            transition: background-color 0.4s ease;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-color);
+            transition: all 0.4s ease;
+        }
+        .project-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        /* FIXED HOVER ARROW VISIBILITY & TEXT OVERLAP PROTECTION */
+        .project-card:hover .project-arrow {
+            background-color: var(--accent-color) !important;
+            color: #111 !important;
+            transform: rotate(45deg);
+        }
+        .project-card:hover .project-arrow i {
+            color: #111 !important;
+        }
+        
+        .project-image-wrapper {
+            background-color: #111111;
+            padding: 8px;
+        }
+        .project-image-wrapper img { 
+            transition: transform 0.6s ease; 
+        }
+        .project-card:hover .project-image-wrapper img { 
+            transform: scale(1.05); 
+        }
+
+        details > summary { list-style: none; cursor: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: sweep .5s ease-in-out; }
+        @keyframes sweep {
+            0% {opacity: 0; transform: translateY(-10px)}
+            100% {opacity: 1; transform: translateY(0)}
+        }
+
+        /* ============================= */
+        /* PRELOADER / INTRO SEQUENCE     */
+        /* ============================= */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        #preloader .pre-word {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(3rem, 9vw, 8rem);
+            color: var(--text-color);
+            letter-spacing: -0.02em;
+        }
+        #preloader .pre-word span { color: var(--accent-color); }
+        #preloader .pre-bar {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 4px; width: 0%;
+            background: var(--accent-color);
+        }
+
+        /* ============================= */
+        /* 3D SCENE / PERSPECTIVE LAYERS  */
+        /* ============================= */
+        .hero-section { perspective: 1600px; }
+
+        .hero-glow {
+            position: absolute;
+            bottom: 5%;
+            right: 8%;
+            width: min(38vw, 480px);
+            height: min(38vw, 480px);
+            background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+            opacity: 0.25;
+            filter: blur(40px);
+            z-index: 5;
+            animation: floatGlow 7s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes floatGlow {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-25px) scale(1.08); }
+        }
+
+        .orbit-shape {
+            position: absolute;
+            border: 1.5px solid var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 6;
+            transform-style: preserve-3d;
+        }
+        .orbit-shape.o1 { width: 140px; height: 140px; top: 14%; left: 8%; animation: orbitSpin1 18s linear infinite; }
+        .orbit-shape.o2 { width: 70px; height: 70px; top: 60%; left: 20%; border-radius: 12px; animation: orbitSpin2 14s linear infinite; }
+        .orbit-shape.o3 { width: 34px; height: 34px; top: 30%; left: 42%; background: var(--accent-color); border: none; border-radius: 50%; animation: orbitSpin3 9s ease-in-out infinite; }
+        @keyframes orbitSpin1 { from { transform: rotate(0deg) translateX(30px) rotate(0deg); } to { transform: rotate(360deg) translateX(30px) rotate(-360deg); } }
+        @keyframes orbitSpin2 { from { transform: rotate(0deg) translateX(20px) rotateY(0deg); } to { transform: rotate(-360deg) translateX(20px) rotateY(360deg); } }
+        @keyframes orbitSpin3 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        .giant-text-bg { transform-style: preserve-3d; }
+
+        /* ============================= */
+        /* SCROLL-REVEAL UTILITY          */
+        /* ============================= */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+        .reveal-fade {
+            opacity: 0;
+        }
+
+        /* ============================= */
+        /* 3D TILT PROJECT CARDS          */
+        /* ============================= */
+        .project-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+        .project-image-wrapper {
+            transform-style: preserve-3d;
+        }
+        .project-image-wrapper img {
+            transform: translateZ(0);
+        }
+        .project-card:hover .project-image-wrapper img {
+            transform: translateZ(30px) scale(1.05);
+        }
+        .project-card h3, .project-card p, .project-arrow {
+            transform: translateZ(20px);
+        }
+
+        /* ============================= */
+        /* MAGNETIC / TILT BUTTONS        */
+        /* ============================= */
+        .magnetic-btn { display: inline-block; will-change: transform; }
+
+        #services .grid > div {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-up, .reveal-fade { opacity: 1 !important; transform: none !important; }
+            .orbit-shape, .hero-glow { animation: none !important; }
+        }
+
+        /* CUSTOM HERO TEXT CLASSES */
+        .hero-title-text {
+            color: var(--hero-text);
+            text-shadow: var(--hero-shadow);
+        }
+        .hero-subtitle-text {
+            color: var(--hero-text-muted);
+        }
+
+        /* BOLD HIGHLIGHTED BUTTON-LIKE TAGS */
+        .section-tag-btn {
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            border: 2px solid var(--tag-border);
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
-<body class="antialiased selection:bg-cyan-500 selection:text-white">
+<body class="flex flex-col md:flex-row min-h-screen">
 
-    <canvas id="bg-canvas"></canvas>
-
-    <nav class="fixed w-full z-40 glass-panel py-4 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold tracking-tighter">Shahil<span class="text-cyan-400">.</span></a>
-            <div class="flex space-x-6 md:space-x-8 text-sm font-semibold tracking-wide items-center">
-                <a href="#projects-section" class="hidden md:block hover:text-cyan-500 transition">Projects</a>
-                <a href="#contact" class="hidden md:block hover:text-cyan-500 transition">Contact</a>
-                <a href="javascript:void(0)" onclick="openExternalSafe('https://github.com/shahilshajahan')" class="hidden md:block hover:text-cyan-500 transition">GitHub</a>
-                <a href="javascript:void(0)" onclick="openExternalSafe('https://www.linkedin.com/in/shahilshajahan/')" class="hidden md:block hover:text-blue-500 transition">LinkedIn</a>
-                
-                <!-- THEME TOGGLE BUTTON -->
-                <button id="theme-btn" onclick="toggleTheme()" class="text-xl transition-all duration-300 hover:scale-110 focus:outline-none">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <section class="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 pt-20 max-w-7xl mx-auto gap-16 z-10 relative">
-        <div class="flex-1 text-center md:text-left z-10">
-            <p class="text-purple-500 font-semibold tracking-[0.2em] uppercase mb-4 text-sm animate-pulse hero-text">Software Engineer & Systems Integrator</p>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight hero-text">
-                Code with purpose. <br><span class="gradient-text text-6xl md:text-8xl">Build with passion.</span>
-            </h1>
-            <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed max-w-lg mx-auto md:mx-0 hero-text">
-                I engineer resilient backend architectures, hardware integrations, and automation tools designed to optimize operations and solve complex business challenges. From concept to deployment, I focus on delivering scalable, high-performance software.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-5 justify-center md:justify-start">
-                <a href="#projects-section" class="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-bold hover:scale-105 transition-transform duration-300 shadow-[0_0_20px_rgba(6,182,212,0.4)]">
-                    Explore My Capabilities
-                </a>
-            </div>
-        </div>
-        
-        <div class="flex-1 flex justify-center items-center mt-12 md:mt-0">
-            <div class="profile-img-container">
-                <img src="https://avatars.githubusercontent.com/u/152691954?v=4" alt="Shahil Shajahan" class="profile-img">
-                <div class="orbit-ring"></div>
-                <div class="orbit-ring-2"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects-section" class="py-24 px-6 relative z-10">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16 relative">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 hero-text">Project <span class="gradient-text">Portfolio</span></h2>
-                <p class="text-slate-400 text-lg hero-text">A showcase of production-ready applications, embedded systems, and foundational learning milestones.</p>
-            </div>
-            <div id="projects-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-20 px-6 relative z-10 bg-gradient-to-t from-black/5 to-transparent">
-        <div class="max-w-3xl mx-auto text-center glass-panel p-10 rounded-3xl">
-            <h2 class="text-3xl font-bold mb-6 hero-text">Let's Build Together</h2>
-            <p class="text-slate-400 mb-8 hero-text">Looking for an engineer who understands both logic and business value? Let's connect.</p>
-            <a href="mailto:shahilshajahan@proton.me" class="inline-flex items-center gap-3 px-8 py-4 bg-cyan-500/10 border border-cyan-500/50 hover:bg-cyan-500/20 rounded-full font-bold transition duration-300 text-lg">
-                <i class="fas fa-envelope text-cyan-500"></i> shahilshajahan@proton.me
-            </a>
-            <div class="flex justify-center gap-8 mt-10">
-                <a href="javascript:void(0)" onclick="openExternalSafe('https://github.com/shahilshajahan')" class="text-slate-400 hover:text-cyan-500 text-3xl transition duration-300 hover:scale-110"><i class="fab fa-github"></i></a>
-                <a href="javascript:void(0)" onclick="openExternalSafe('https://www.linkedin.com/in/shahilshajahan/')" class="text-slate-400 hover:text-blue-500 text-3xl transition duration-300 hover:scale-110"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <div id="project-modal" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 transition-colors">
-        <div class="glass-modal modal-content w-full max-w-4xl rounded-2xl overflow-hidden relative flex flex-col max-h-[90vh]">
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-20 w-10 h-10 bg-black/30 hover:bg-red-500/80 rounded-full flex items-center justify-center text-white transition">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="relative h-56 md:h-72 w-full bg-slate-800">
-                <div id="modal-banner-color" class="absolute inset-0 bg-gradient-to-br opacity-50 transition-colors"></div>
-                <img id="modal-image" src="" alt="Project Banner" class="w-full h-full object-cover mix-blend-overlay opacity-80">
-                <div class="absolute bottom-6 left-6 z-10">
-                    <span id="modal-status" class="px-3 py-1 text-xs font-bold rounded-full border mb-3 inline-block bg-white/10 text-white border-white/20 backdrop-blur-sm"></span>
-                    <h2 id="modal-title" class="text-3xl md:text-4xl font-bold text-white drop-shadow-lg"></h2>
-                </div>
-            </div>
-            <div class="p-6 md:p-8 overflow-y-auto custom-scroll flex-1">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold mb-3 text-cyan-500">About the Project</h3>
-                        <p id="modal-desc" class="mb-6 leading-relaxed text-slate-300"></p>
-                    </div>
-                    <div class="w-full md:w-64 bg-white/5 p-6 rounded-xl border border-white/10 h-fit">
-                        <h4 class="font-bold mb-3">Category</h4>
-                        <p id="modal-category" class="text-sm mb-6 text-slate-400"></p>
-                        <h4 class="font-bold mb-3">Technologies</h4>
-                        <div id="modal-tech" class="flex flex-wrap gap-2 mb-8"></div>
-                        <a id="modal-github-link" href="#" onclick="openExternalFromModal(event)" class="w-full block text-center px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white rounded-lg font-bold transition duration-300 mb-3 cursor-pointer">
-                            <i class="fab fa-github mr-2"></i> View Repository
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- PRELOADER / INTRO -->
+    <div id="preloader">
+        <h1 class="pre-word">SHAHIL<span>.</span></h1>
+        <div class="pre-bar" id="pre-bar"></div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
+    <!-- 3D Custom Cursor -->
+    <div class="custom-cursor hidden md:block" id="custom-cursor"></div>
+
+    <!-- MOBILE THEME SWITCH BUTTON (Fixed perfectly centered on the top right) -->
+    <button id="theme-toggle-mobile" class="md:hidden fixed top-2 right-3 z-[60] w-9 h-9 rounded-full bg-[var(--card-bg)] border border-[var(--border-color)] shadow-md flex items-center justify-center hover:bg-[var(--accent-color)] hover:text-black transition-colors">
+        <!-- Content injected by JS -->
+    </button>
+
+    <!-- MOBILE TOP NAVBAR & PC LEFT SIDEBAR -->
+    <aside class="sidebar w-full md:w-[280px] lg:w-[320px] h-auto md:h-screen sticky top-0 z-50 flex flex-row md:flex-col justify-between md:justify-start items-center md:items-stretch py-3 pl-3 pr-16 md:p-6 overflow-x-auto no-scrollbar md:overflow-y-auto border-b md:border-b-0 md:border-r border-[var(--border-color)]">
+        
+        <!-- Wrapper for Nav elements -->
+        <div class="flex flex-row md:flex-col items-center md:items-stretch gap-3 md:gap-0 shrink-0 w-full md:w-auto">
+            
+            <!-- LOGO AREA -->
+            <div class="hidden md:block bg-gray-100 dark:bg-gray-800 rounded-lg md:rounded-xl p-2 px-3 md:p-6 mb-0 md:mb-8 relative overflow-hidden group hover:bg-[var(--accent-color)] transition-colors duration-500 shrink-0">
+                <h1 class="font-anton text-xl md:text-6xl tracking-wide relative z-10 text-gray-900 dark:text-white group-hover:text-black transition-colors leading-none m-0 flex items-baseline md:block gap-1">
+                    SHAHIL <span class="hidden md:inline"><br></span>
+                    <span class="text-[var(--accent-color)] group-hover:text-black text-lg md:text-5xl">SHAJAHAN</span>
+                </h1>
+            </div>
+
+            <!-- Intro text -->
+            <p class="text-sm font-medium leading-relaxed mb-6 text-[var(--text-muted)] hidden md:block">
+                Turning ideas into practical software through open-source development, automation, and modern engineering.
+            </p>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-4 mb-8 hidden md:grid">
+                <div class="bg-[var(--card-bg)] p-4 rounded-xl border border-[var(--border-color)]">
+                    <h3 class="font-anton text-3xl">5+</h3>
+                    <p class="text-[10px] font-bold uppercase mt-1 text-[var(--text-muted)]">Core<br>Projects</p>
+                </div>
+                <div class="bg-[var(--card-bg)] p-4 rounded-xl border border-[var(--border-color)]">
+                    <h3 class="font-anton text-3xl">3+</h3>
+                    <p class="text-[10px] font-bold uppercase mt-1 text-[var(--text-muted)]">Years of<br>learning</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex flex-row md:flex-col space-x-2 md:space-x-0 md:space-y-1 mb-0 md:mb-0 shrink-0 items-center md:items-stretch w-full md:w-auto">
+                <a href="#hero" class="nav-link active px-3 py-1.5 md:px-4 md:py-3 text-[11px] md:text-base whitespace-nowrap"><i class="fas fa-home md:w-8 mr-1 md:mr-0"></i> Home</a>
+                <a href="#projects" class="nav-link px-3 py-1.5 md:px-4 md:py-3 text-[11px] md:text-base whitespace-nowrap"><i class="fas fa-layer-group md:w-8 mr-1 md:mr-0"></i> Projects</a>
+                <a href="#services" class="nav-link px-3 py-1.5 md:px-4 md:py-3 text-[11px] md:text-base whitespace-nowrap"><i class="fas fa-bolt md:w-8 mr-1 md:mr-0"></i> Capabilities</a>
+                <a href="#about" class="nav-link px-3 py-1.5 md:px-4 md:py-3 text-[11px] md:text-base whitespace-nowrap"><i class="fas fa-user md:w-8 mr-1 md:mr-0"></i> About Me</a>
+                <!-- Invisible Spacer to protect the "About Me" link from overlapping with the top right button on mobile -->
+                <div class="md:hidden w-12 shrink-0"></div>
+            </nav>
+        </div>
+
+        <!-- FOOTER BUTTONS (PC ONLY) -->
+        <div class="hidden md:block mt-2 w-full">
+            <!-- Theme Toggle -->
+            <button id="theme-toggle" class="flex items-center justify-between w-full bg-[var(--card-bg)] border border-[var(--border-color)] p-3 rounded-lg text-xs font-bold hover:bg-[var(--accent-color)] hover:text-black transition mb-4 cursor-none">
+                <!-- Content injected by JS -->
+            </button>
+
+            <!-- Social Links -->
+            <div class="flex gap-2 mb-4 justify-between">
+                <a href="https://github.com/shahilshajahan" target="_blank" class="flex-1 bg-[var(--card-bg)] border border-[var(--border-color)] p-3 rounded-lg text-center hover:bg-[var(--accent-color)] hover:text-black transition">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/shahilshajahan/" target="_blank" class="flex-1 bg-[var(--card-bg)] border border-[var(--border-color)] p-3 rounded-lg text-center hover:bg-[var(--accent-color)] hover:text-black transition">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+            </div>
+            
+            <!-- Email Button -->
+            <a href="mailto:shahilshajahan@proton.me?subject=Let's Work Together" class="block w-full bg-[var(--accent-color)] text-black text-center font-extrabold text-lg py-4 rounded-xl hover:bg-black hover:text-[var(--accent-color)] transition duration-300 shadow-sm">
+                Email Me
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN SCROLLABLE CONTENT -->
+    <main class="flex-1 w-full relative">
+
+        <!-- 3D PARALLAX HERO SECTION -->
+        <section id="hero" class="hero-section">
+            <!-- Giant Background Text -->
+            <h1 class="giant-text-bg font-anton" id="parallax-bg">SHAHIL</h1>
+
+            <!-- Ambient orbiting 3D shapes -->
+            <div class="orbit-shape o1"></div>
+            <div class="orbit-shape o2"></div>
+            <div class="orbit-shape o3"></div>
+
+            <!-- User Photo with 3D perspective wrapper -->
+            <div class="hero-portrait-wrap" id="parallax-fg">
+                <div class="hero-glow"></div>
+                <img src="images/shahil.png" alt="Shahil Shajahan" class="hero-portrait">
+            </div>
+
+            <!-- Overlay Content Wrapper -->
+            <div class="relative z-20 w-full max-w-6xl mx-auto flex flex-col justify-end h-full px-6 md:px-12 pointer-events-none pb-4 md:pb-12">
+                
+                <!-- Headline Quote Text restricted to left side -->
+                <div class="w-[85%] sm:w-[70%] lg:w-[60%] pointer-events-auto" id="parallax-text">
+                    <h2 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-4 md:mb-6 transition-colors hero-title-text">
+                        Code with <br>purpose. <br>
+                        <span class="hero-subtitle-text">Build with <br>passion.</span>
+                    </h2>
+                    <div class="flex gap-4 sm:gap-6 mt-4 md:mt-6">
+                        <a href="#projects" style="background-color: var(--invert-btn-bg); color: var(--invert-btn-text);" class="px-6 py-3 md:px-8 md:py-4 rounded-full font-bold uppercase tracking-wide text-sm md:text-base hover:opacity-80 transition inline-block">View Work</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALL PROJECTS SECTION -->
+        <section id="projects" class="project-section-bg pt-8 pb-10 md:pt-12 md:pb-12 px-6 md:px-12 rounded-t-[2rem] md:rounded-t-[3rem] mt-0 md:mt-0">
+            <div class="max-w-6xl mx-auto">
+                
+                <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-5 md:mb-16">
+                    <div class="text-center md:text-left w-full md:w-auto">
+                        <p class="uppercase tracking-wider text-xs px-5 py-2 inline-block rounded-full mb-2 md:mb-6 section-tag-btn mx-auto md:mx-0">Projects</p>
+                        <h2 class="text-[28px] sm:text-4xl md:text-7xl font-extrabold tracking-tight text-[var(--text-color)] whitespace-nowrap md:whitespace-normal">Imagine. Build. Evolve.</h2>
+                    </div>
+                    <p class="hidden md:block text-[var(--text-muted)] font-medium max-w-xs mt-6 md:mt-0 text-lg">
+                        A look at applications, utilities, and embedded systems designed to solve real problems.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Project 1 (Shahil WinKit) -->
+                    <a href="https://github.com/shahilshajahan/Shahil-Winkit" target="_blank" class="project-card rounded-3xl p-6 md:p-8 block group relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-6 relative z-10">
+                            <span class="text-4xl font-anton text-[var(--text-muted)]">01</span>
+                            <div class="flex gap-2 text-black">
+                                <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Ongoing</span>
+                                <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">PowerShell</span>
+                            </div>
+                        </div>
+                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/WinKit.png" alt="Shahil WinKit" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        </div>
+                        <div class="relative pr-16">
+                            <h3 class="text-3xl font-bold mb-2">Shahil WinKit</h3>
+                            <p class="text-[var(--text-muted)] font-medium">An all-in-one PowerShell utility toolkit for Windows optimization, deep cleanup, and privacy management. Built to automate and simplify essential system maintenance tasks.</p>
+                        </div>
+                        <div class="project-arrow absolute bottom-8 right-8 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 z-20" style="background-color: var(--arrow-bg); color: var(--arrow-color);">
+                            <i class="fas fa-arrow-up text-lg"></i>
+                        </div>
+                    </a>
+
+                    <!-- Project 2 (Shahil NetCutix) -->
+                    <a href="https://github.com/shahilshajahan/Shahil-NetCutix" target="_blank" class="project-card rounded-3xl p-6 md:p-8 block group relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-6 relative z-10">
+                            <span class="text-4xl font-anton text-[var(--text-muted)]">02</span>
+                            <div class="flex gap-2">
+                                <span class="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Ongoing</span>
+                                <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">PowerShell</span>
+                            </div>
+                        </div>
+                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/NetCutix.png" alt="Shahil NetCutix" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        </div>
+                        <div class="relative pr-16">
+                            <h3 class="text-3xl font-bold mb-2">Shahil NetCutix</h3>
+                            <p class="text-[var(--text-muted)] font-medium">A precise network management tool that provides one-click internet access control for individual Windows applications, leveraging system-level PowerShell automation.</p>
+                        </div>
+                        <div class="project-arrow absolute bottom-8 right-8 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 z-20" style="background-color: var(--arrow-bg); color: var(--arrow-color);">
+                            <i class="fas fa-arrow-up text-lg"></i>
+                        </div>
+                    </a>
+
+                    <!-- Project 3 -->
+                    <a href="https://github.com/shahilshajahan/LiveMicToSpeaker" target="_blank" class="project-card rounded-3xl p-6 md:p-8 block group relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-6 relative z-10">
+                            <span class="text-4xl font-anton text-[var(--text-muted)]">03</span>
+                            <div class="flex gap-2 text-black">
+                                <span class="bg-[var(--accent-color)] text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Completed</span>
+                                <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Python</span>
+                            </div>
+                        </div>
+                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/live%20mic%20to%20speaker.png" alt="Live Mic" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        </div>
+                        <div class="relative pr-16">
+                            <h3 class="text-3xl font-bold mb-2">Live Mic to Speaker</h3>
+                            <p class="text-[var(--text-muted)] font-medium">Real-time audio processing desktop utility capturing mic input to speakers.</p>
+                        </div>
+                        <div class="project-arrow absolute bottom-8 right-8 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 z-20" style="background-color: var(--arrow-bg); color: var(--arrow-color);">
+                            <i class="fas fa-arrow-up text-lg"></i>
+                        </div>
+                    </a>
+
+                    <!-- Project 4 -->
+                    <a href="https://github.com/shahilshajahan/firmware-for-gauguininpro" target="_blank" class="project-card rounded-3xl p-6 md:p-8 block group relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-6 relative z-10">
+                            <span class="text-4xl font-anton text-[var(--text-muted)]">04</span>
+                            <div class="flex gap-2">
+                                <span class="bg-[var(--accent-color)] text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Completed</span>
+                                <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">C++</span>
+                            </div>
+                        </div>
+                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/mi%2010i.png" alt="Firmware" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        </div>
+                        <div class="relative pr-16">
+                            <h3 class="text-3xl font-bold mb-2">Firmware for Xiaomi 10i</h3>
+                            <p class="text-[var(--text-muted)] font-medium">Custom Android OS firmware development and Kernel Optimization.</p>
+                        </div>
+                        <div class="project-arrow absolute bottom-8 right-8 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 z-20" style="background-color: var(--arrow-bg); color: var(--arrow-color);">
+                            <i class="fas fa-arrow-up text-lg"></i>
+                        </div>
+                    </a>
+
+                    <!-- Project 5 -->
+                    <a href="https://github.com/shahilshajahan/Arduino-RTC-Timing-Switch" target="_blank" class="project-card rounded-3xl p-6 md:p-8 block group relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-6 relative z-10">
+                            <span class="text-4xl font-anton text-[var(--text-muted)]">05</span>
+                            <div class="flex gap-2">
+                                <span class="bg-[var(--accent-color)] text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Completed</span>
+                                <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Arduino</span>
+                            </div>
+                        </div>
+                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/arduino%20rtc.png" alt="Arduino RTC" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        </div>
+                        <div class="relative pr-16">
+                            <h3 class="text-3xl font-bold mb-2">Arduino RTC Switch</h3>
+                            <p class="text-[var(--text-muted)] font-medium">Hardware IoT integration with precise scheduling.</p>
+                        </div>
+                        <div class="project-arrow absolute bottom-8 right-8 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 z-20" style="background-color: var(--arrow-bg); color: var(--arrow-color);">
+                            <i class="fas fa-arrow-up text-lg"></i>
+                        </div>
+                    </a>
+
+                    <!-- Project 6 (Discontinued) -->
+                    <a href="https://github.com/shahilshajahan/Calculator" target="_blank" class="project-card rounded-3xl p-6 md:p-8 block group relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-6 relative z-10">
+                            <span class="text-4xl font-anton text-[var(--text-muted)]">06</span>
+                            <div class="flex gap-2">
+                                <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Discontinued</span>
+                                <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Java</span>
+                            </div>
+                        </div>
+                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/calculator.png" alt="Calculator" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        </div>
+                        <div class="relative pr-16">
+                            <h3 class="text-3xl font-bold mb-2">Calculator App</h3>
+                            <p class="text-[var(--text-muted)] font-medium">Learning project exploring core programming logic and UI state.</p>
+                        </div>
+                        <div class="project-arrow absolute bottom-8 right-8 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 z-20" style="background-color: var(--arrow-bg); color: var(--arrow-color);">
+                            <i class="fas fa-arrow-up text-lg"></i>
+                        </div>
+                    </a>
+
+                    <!-- Project 7 (Discontinued) -->
+                    <a href="https://github.com/shahilshajahan/Movie-Ticket-Booking-Py" target="_blank" class="project-card rounded-3xl p-6 md:p-8 block group relative overflow-hidden md:col-span-2 lg:col-span-1">
+                        <div class="flex justify-between items-start mb-6 relative z-10">
+                            <span class="text-4xl font-anton text-[var(--text-muted)]">07</span>
+                            <div class="flex gap-2">
+                                <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Discontinued</span>
+                                <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Python</span>
+                            </div>
+                        </div>
+                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/movie%20ticket.png" alt="Movie Ticket" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        </div>
+                        <div class="relative pr-16">
+                            <h3 class="text-3xl font-bold mb-2">Movie Ticket Booking</h3>
+                            <p class="text-[var(--text-muted)] font-medium">Learning milestone on backend systems and database schemas.</p>
+                        </div>
+                        <div class="project-arrow absolute bottom-8 right-8 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 z-20" style="background-color: var(--arrow-bg); color: var(--arrow-color);">
+                            <i class="fas fa-arrow-up text-lg"></i>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES SECTION -->
+        <section id="services" class="pt-6 pb-6 md:pt-12 md:pb-12 px-6 md:px-12 bg-[var(--bg-color)]">
+            <div class="max-w-6xl mx-auto text-center md:text-left">
+                <h2 class="text-[22px] sm:text-3xl md:text-[3vw] font-extrabold tracking-tight leading-[1.4] md:leading-[1.3] mb-8 md:mb-16 whitespace-nowrap md:whitespace-normal">
+                    Open for collaborations, <br> <span class="whitespace-nowrap">open-source contributions,</span> <br> and Software Engineering opportunities.
+                </h2>
+                <h3 class="text-xl sm:text-2xl md:text-5xl font-bold mb-6 md:mb-10 text-[var(--text-muted)]" style="line-height: 1.3;">
+                    Driven by curiosity, built with precision - turning bold ideas into <span class="bg-[var(--accent-color)] text-black px-2 rounded-lg whitespace-nowrap">real, working software</span> that stands the test of time.
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                    <div class="bg-[var(--card-bg)] p-8 rounded-3xl border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
+                        <i class="fas fa-desktop text-4xl mb-6 text-[var(--text-color)]"></i>
+                        <h4 class="text-2xl font-bold mb-4">Desktop Applications</h4>
+                        <p class="text-[var(--text-muted)] font-medium">Building reliable, user-friendly desktop tools and utilities that solve real-world productivity problems.</p>
+                    </div>
+                    <div class="bg-[var(--accent-color)] p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 transform md:-translate-y-4 text-black">
+                        <i class="fas fa-microchip text-4xl mb-6"></i>
+                        <h4 class="text-2xl font-bold mb-4">Embedded & IoT</h4>
+                        <p class="font-medium">Hardware integration, custom OS development, and precise logic scheduling for real-world devices.</p>
+                    </div>
+                    <div class="bg-[var(--card-bg)] p-8 rounded-3xl border border-[var(--border-color)] hover:shadow-xl transition-all duration-300">
+                        <i class="fas fa-cogs text-4xl mb-6 text-[var(--text-color)]"></i>
+                        <h4 class="text-2xl font-bold mb-4">Workflow Automation</h4>
+                        <p class="text-[var(--text-muted)] font-medium">Building custom scripts and automation tools to reduce manual overhead and solve operational bottlenecks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="pt-4 pb-8 md:pt-12 md:pb-20 px-6 md:px-12 max-w-5xl mx-auto border-t border-[var(--border-color)]">
+            <div class="text-center md:text-left w-full">
+                <p class="uppercase tracking-wider text-xs px-5 py-2 inline-block rounded-full mb-6 md:mb-8 section-tag-btn mx-auto md:mx-0">Start Small, Grow Big.</p>
+                <h2 class="text-[26px] sm:text-4xl md:text-7xl font-extrabold tracking-tight mb-4 md:mb-12 whitespace-nowrap md:whitespace-normal">About Me (&) My Journey</h2>
+            </div>
+            
+            <div class="bg-[var(--card-bg)] p-8 md:p-12 rounded-2xl border border-[var(--border-color)] shadow-sm transition-colors duration-400">
+                <p class="text-base md:text-2xl text-[var(--text-muted)] leading-relaxed font-medium text-left">
+                    I am a Tech Enthusiast focused on building practical software, open-source projects, and automation tools with a focus on solving real-world problems through simple, reliable, and user-friendly applications. 
+                    <br><br> Outside of software development, I currently work as an Administrator in the clothing industry, where I manage daily operations, maintain accounts, organize business processes, and ensure smooth workflow management. This experience has strengthened my analytical thinking, attention to detail, and problem-solving skills—qualities that I bring into every software project I build.
+<br><br>
+I actively build and maintain free, open-source projects while continuously exploring new technologies and improving my engineering skills. I enjoy rapid prototyping, experimenting with ideas, and turning concepts into functional products through a build-first approach.
+<br><br>
+I'm always learning, always building, and always looking for opportunities to collaborate with talented developers.
+Core Interests: Software Development • Backend Engineering • Desktop Applications • Automation • Open Source • Productivity Tools • Problem Solving <br><br>
+ </p>
+            </div>
+        </section>
+
+        <!-- MOBILE FOOTER SOCIALS & EMAIL BUTTON -->
+        <div class="flex md:hidden flex-col gap-4 px-6 pb-12 max-w-5xl mx-auto w-full">
+            <div class="flex gap-4 w-full">
+                <a href="https://github.com/shahilshajahan" target="_blank" class="flex-1 bg-[var(--card-bg)] border border-[var(--border-color)] p-4 rounded-xl text-center hover:bg-[var(--accent-color)] hover:text-black transition shadow-sm">
+                    <i class="fab fa-github text-2xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/shahilshajahan/" target="_blank" class="flex-1 bg-[var(--card-bg)] border border-[var(--border-color)] p-4 rounded-xl text-center hover:bg-[var(--accent-color)] hover:text-black transition shadow-sm">
+                    <i class="fab fa-linkedin-in text-2xl"></i>
+                </a>
+            </div>
+            <a href="mailto:shahilshajahan@proton.me?subject=Let's Work Together" class="block w-full bg-[var(--accent-color)] text-black text-center font-extrabold text-lg py-4 rounded-xl hover:bg-black hover:text-[var(--accent-color)] transition duration-300 shadow-sm">
+                Email Me
+            </a>
+        </div>
+
+    </main>
+
+    <!-- SCRIPTS -->
     <script>
-        // ==========================================
-        // THEME TOGGLE LOGIC
-        // ==========================================
+        // --- 1. DARK/LIGHT THEME TOGGLE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+        const rootElement = document.documentElement;
+
         function updateThemeIcon() {
-            const btn = document.getElementById('theme-btn');
-            const isLight = document.documentElement.classList.contains('light-mode');
+            const isDark = rootElement.classList.contains('dark-theme');
             
-            if(isLight) {
-                btn.innerHTML = '<i class="fas fa-sun"></i>';
-                btn.classList.add('text-amber-500');
-                btn.classList.remove('text-slate-400', 'hover:text-cyan-400');
-            } else {
-                btn.innerHTML = '<i class="fas fa-moon"></i>';
-                btn.classList.remove('text-amber-500');
-                btn.classList.add('text-slate-400', 'hover:text-cyan-400');
-            }
+            const desktopHTML = isDark 
+                ? `<span><i class="fas fa-sun mr-2"></i> Light Mode</span><i class="fas fa-toggle-on text-[var(--accent-color)] text-lg"></i>`
+                : `<span><i class="fas fa-moon mr-2"></i> Dark Mode</span><i class="fas fa-toggle-off text-gray-400 text-lg"></i>`;
             
-            // Update 3D particles if scene is ready
-            if(typeof material !== 'undefined') {
-                material.color.setHex(isLight ? 0x0ea5e9 : 0x4facfe);
-            }
+            const mobileHTML = isDark 
+                ? `<i class="fas fa-sun text-[var(--accent-color)] text-lg"></i>`
+                : `<i class="fas fa-moon text-gray-600 text-lg"></i>`;
+            
+            if (themeToggleBtn) themeToggleBtn.innerHTML = desktopHTML;
+            if (themeToggleMobileBtn) themeToggleMobileBtn.innerHTML = mobileHTML;
         }
 
-        function toggleTheme() {
-            document.documentElement.classList.toggle('light-mode');
-            const isLight = document.documentElement.classList.contains('light-mode');
-            
-            // Save preference to local storage
-            localStorage.setItem('shahil_theme', isLight ? 'light' : 'dark');
+        function toggleAppTheme() {
+            rootElement.classList.toggle('dark-theme');
+            const isDark = rootElement.classList.contains('dark-theme');
+            localStorage.setItem('shahil_heynesh_theme', isDark ? 'dark' : 'light');
             updateThemeIcon();
         }
 
-        // Set initial icon on load
-        window.addEventListener('DOMContentLoaded', updateThemeIcon);
+        if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleAppTheme);
+        if (themeToggleMobileBtn) themeToggleMobileBtn.addEventListener('click', toggleAppTheme);
 
+        updateThemeIcon();
 
-        // ==========================================
-        // EXTERNAL LINKS FIX
-        // ==========================================
-        function openExternalSafe(url) {
-            const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-            if (newWindow) newWindow.opener = null;
-        }
-
-        function openExternalFromModal(e) {
-            e.preventDefault();
-            const url = e.currentTarget.getAttribute('href');
-            openExternalSafe(url);
-        }
-
-        // ==========================================
-        // PROJECTS DATA & RENDERING
-        // ==========================================
-        const projectsData = [
-            {
-                id: 1, title: "Live Mic to Speaker", category: "System Utility", status: "Completed", date: "2025-08", 
-                image: "https://media.licdn.com/dms/image/v2/D562DAQHb5hcgEzKtQw/profile-treasury-image-shrink_1280_1280/B56Z.OGQobKkAY-/0/1784795433894?e=1785409200&v=beta&t=CfCa4xw-kEWODd8PlMoeKej2VKWCVDxW7PD-gxlIsv8",
-                shortDesc: "Real-time audio processing desktop utility in Python.",
-                fullDesc: "A lightweight, low-latency Python utility designed to capture live microphone input and directly route it to the system speakers in real-time, effectively turning a PC into an amplifier system.",
-                technologies: ["Python", "Audio Processing"],
-                github: "https://github.com/shahilshajahan/LiveMicToSpeaker", colorTheme: "from-red-500 to-orange-400"
-            },
-            {
-                id: 2, title: "Calculator Application", category: "Software Fundamentals", status: "Learning Project", date: "2024-02", 
-                image: "https://media.licdn.com/dms/image/v2/D562DAQGbgBY29YHfmg/profile-treasury-image-shrink_1280_1280/B56Z.OCiJlKkAY-/0/1784794456956?e=1785409200&v=beta&t=3amGMtFk1vH16tT2CoFWCE4W1PR0sAKkWd8P0mCzYII",
-                shortDesc: "Beginner application built to grasp programming logic and UI state.",
-                fullDesc: "A straightforward calculator application created in the early stages of my programming journey. It was specifically designed to help me understand how raw mathematical logic is translated into code.",
-                technologies: ["Java", "Mathematics"], 
-                github: "https://github.com/shahilshajahan/Calculator", colorTheme: "from-orange-500 to-yellow-400"
-            },
-            {
-                id: 3, title: "Arduino RTC Timing Switch", category: "IoT / Hardware", status: "Completed", date: "2024-02", 
-                image: "https://media.licdn.com/dms/image/v2/D562DAQGtuHqzZCxChg/profile-treasury-image-shrink_1280_1280/B56Z.OEp4vGgAg-/0/1784795012936?e=1785409200&v=beta&t=mkQT6tuYXQ0YZoLNcUjrZWO5Mz_omYt5bzlbioPm0_E",
-                shortDesc: "Hardware integration utilizing an RTC module and relays.",
-                fullDesc: "An embedded systems project designed for home automation. By utilizing an Arduino paired with a Real-Time Clock (RTC) module and relay switches, this system automates electrical appliances based on exact time schedules.",
-                technologies: ["Arduino", "C++", "IoT"],
-                github: "https://github.com/shahilshajahan/Arduino-RTC-Timing-Switch", colorTheme: "from-purple-600 to-pink-400"
-            },
-            {
-                id: 4, title: "Firmware for Xiaomi Mi 10i 5G", category: "Embedded / Android", status: "Completed", date: "2023-11", 
-                image: "https://media.licdn.com/dms/image/v2/D562DAQGfiS7rArBXIw/profile-treasury-image-shrink_1280_1280/B56Z.N._k7IQAY-/0/1784793528915?e=1785409200&v=beta&t=dHjItoQFFK_S6rsYcdrzLP08PFB0h-rNZ-QMRtKp9v0",
-                shortDesc: "Firmware customization and open-source contribution for gauguininpro.",
-                fullDesc: "A deep dive into Android systems. This repository houses customized firmware development for the Xiaomi Mi 10i 5G (gauguininpro). It involves kernel optimizations, system patching, and providing open-source builds.",
-                technologies: ["Firmware Tweaking", "C++", "Custom OS", "Recovery", "Bootloader"], 
-                github: "https://github.com/shahilshajahan/firmware-for-gauguininpro", colorTheme: "from-emerald-500 to-teal-400"
-            },
-            {
-                id: 5, title: "Movie Ticket Booking", category: "Backend API", status: "Learning Project", date: "2023-08", 
-                image: "https://media.licdn.com/dms/image/v2/D562DAQEEVTyGAkXcig/profile-treasury-image-shrink_1280_1280/B56Z.OBqLlHUAY-/0/1784794227702?e=1785409200&v=beta&t=G5qnBFlktTr74sSsM_fBP2_DureX4dvPeJTLH837myY",
-                shortDesc: "My first Python project. Built while learning Python and SQL.",
-                fullDesc: "This was my foundational step into backend programming. I built a movie ticket booking system to understand how Python interfaces with SQL databases. Though it was discontinued during development, it serves as a crucial learning milestone in my journey.",
-                technologies: ["Python", "SQL", "Database"],
-                github: "https://github.com/shahilshajahan/Movie-Ticket-Booking-Py", colorTheme: "from-blue-600 to-cyan-400"
-            }
-        ];
-
-        const container = document.getElementById('projects-container');
+        // --- 2. 3D CUSTOM CURSOR LOGIC ---
+        const cursor = document.getElementById('custom-cursor');
         
-        projectsData.sort((a, b) => {
-            if (a.status === "Completed" && b.status !== "Completed") return -1;
-            if (a.status !== "Completed" && b.status === "Completed") return 1;
-            return new Date(b.date) - new Date(a.date);
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            const interactables = document.querySelectorAll('a, button, summary, input');
+            interactables.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+            });
+        }
+
+        // --- 3. 3D PARALLAX + TILT MOUSE EFFECT (HERO) ---
+        const heroSection = document.getElementById('hero');
+        const parallaxBg = document.getElementById('parallax-bg'); 
+        const parallaxFg = document.getElementById('parallax-fg'); 
+        const parallaxText = document.getElementById('parallax-text'); 
+
+        if (window.matchMedia("(pointer: fine)").matches) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 30;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 30;
+
+                parallaxBg.style.transform = `translate(calc(-50% + ${xAxis * 0.5}px), calc(-50% + ${yAxis * 0.5}px)) rotateY(${-xAxis * 0.15}deg)`;
+                parallaxFg.style.transform = `translate(${-xAxis}px, ${-yAxis}px) rotateY(${xAxis * 0.6}deg) rotateX(${-yAxis * 0.4}deg)`;
+                parallaxText.style.transform = `translate(${xAxis * 1.5}px, ${yAxis * 1.5}px) translateZ(40px)`;
+            });
+
+            heroSection.addEventListener('mouseleave', () => {
+                parallaxBg.style.transform = `translate(-50%, -50%)`;
+                parallaxFg.style.transform = `translate(0px, 0px) rotateY(0deg) rotateX(0deg)`;
+                parallaxText.style.transform = `translate(0px, 0px)`;
+            });
+        }
+
+        // --- 3B. PRELOADER INTRO SEQUENCE ---
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline({
+                defaults: { ease: 'power3.out' },
+                onComplete: () => {
+                    document.getElementById('preloader').style.display = 'none';
+                }
+            });
+            tl.to('#pre-bar', { width: '100%', duration: 0.9 })
+              .to('.pre-word', { scale: 1.15, opacity: 0, duration: 0.5, ease: 'power2.in' }, '-=0.1')
+              .to('#preloader', { yPercent: -100, duration: 0.7, ease: 'power4.inOut' }, '-=0.2')
+              .from('#parallax-text', { y: 60, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
+              .from('#parallax-fg', { y: 100, opacity: 0, duration: 0.9, ease: 'power3.out' }, '-=0.7')
+              .from('#parallax-bg', { opacity: 0, scale: 0.85, duration: 1 }, '-=0.9')
+              .from('.orbit-shape', { opacity: 0, scale: 0, stagger: 0.1, duration: 0.6 }, '-=0.6')
+              .from('.sidebar > div:first-child > *', { opacity: 0, x: -20, stagger: 0.08, duration: 0.5 }, '-=0.8');
         });
 
-        function renderProjects() {
-            container.innerHTML = "";
-            projectsData.forEach((proj, index) => {
-                let statusBadge = `<div class="absolute top-3 right-3 text-[10px] font-bold px-2 py-1 rounded-md border z-20 shadow-sm backdrop-blur-md bg-green-500/20 text-green-500 border-green-500/50" style="transform: translateZ(60px);">${proj.status}</div>`;
-                if(proj.status.includes("Learning")) {
-                    statusBadge = `<div class="absolute top-3 right-3 text-[10px] font-bold px-2 py-1 rounded-md border z-20 shadow-sm backdrop-blur-md bg-amber-500/20 text-amber-500 border-amber-500/50" style="transform: translateZ(60px);">${proj.status}</div>`;
-                }
+        setTimeout(() => {
+            const pl = document.getElementById('preloader');
+            if (pl && pl.style.display !== 'none') {
+                gsap.to(pl, { yPercent: -100, duration: 0.6, onComplete: () => pl.style.display = 'none' });
+            }
+        }, 3500);
 
-                const techTags = proj.technologies.slice(0, 4).map(t => `<span class="text-[10px] px-2 py-1 bg-black/10 dark:bg-white/5 rounded border border-black/10 dark:border-white/10 tracking-wide truncate max-w-[100px] text-slate-500 dark:text-slate-400">${t}</span>`).join('');
+        // --- 3C. GSAP SCROLL-TRIGGERED REVEALS ---
+        gsap.registerPlugin(ScrollTrigger);
 
-                const cardHTML = `
-                    <div class="project-card glass-panel rounded-3xl p-6 cursor-pointer relative group" onclick="openModal(${index})" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
-                        ${statusBadge}
-                        <div class="card-image-wrapper w-full h-48 rounded-xl overflow-hidden mb-5 relative shadow-[0_10px_20px_rgba(0,0,0,0.2)]">
-                            <div class="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition duration-300 z-10"></div>
-                            <img src="${proj.image}" alt="${proj.title}" class="w-full h-full object-cover">
-                        </div>
-                        <div class="project-content">
-                            <h3 class="text-xl font-bold mb-1 truncate">${proj.title}</h3>
-                            <p class="text-cyan-500 text-[11px] font-semibold mb-1 uppercase tracking-wider">${proj.category}</p>
-                            <p class="text-slate-500 text-[10px] mb-3 uppercase font-mono">${proj.date}</p>
-                            <p class="text-slate-400 text-sm mb-4 leading-relaxed line-clamp-2">${proj.shortDesc}</p>
-                            <div class="flex gap-2 mb-4 flex-wrap">${techTags}</div>
-                            <button class="text-cyan-500 font-semibold text-sm flex items-center gap-2 group-hover:text-cyan-400">
-                                View Details <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += cardHTML;
+        document.querySelectorAll('#about h2, #about p.uppercase, #projects h2, #projects p.uppercase, #services h2').forEach(el => {
+            el.classList.add('reveal-up');
+            gsap.to(el, {
+                scrollTrigger: { trigger: el, start: 'top 85%' },
+                opacity: 1, y: 0, duration: 0.9, ease: 'power3.out'
             });
-            VanillaTilt.init(document.querySelectorAll(".project-card"));
+        });
+
+        gsap.from('#about > div', {
+            scrollTrigger: { trigger: '#about', start: 'top 75%' },
+            opacity: 0, y: 50, duration: 0.9, ease: 'power3.out'
+        });
+
+        gsap.utils.toArray('.project-card').forEach((card, i) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 80, rotateX: 10, transformPerspective: 1000 },
+                {
+                    scrollTrigger: { trigger: card, start: 'top 88%' },
+                    opacity: 1, y: 0, rotateX: 0, duration: 0.8, delay: (i % 2) * 0.1, ease: 'power3.out'
+                }
+            );
+        });
+
+        gsap.utils.toArray('#services .grid > div').forEach((card, i) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 60, rotateY: i === 1 ? 0 : (i === 0 ? -12 : 12) },
+                {
+                    scrollTrigger: { trigger: card, start: 'top 90%' },
+                    opacity: 1, y: 0, rotateY: 0, duration: 0.9, delay: i * 0.12, ease: 'power3.out'
+                }
+            );
+        });
+
+        document.querySelectorAll('#services h3').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: { trigger: el, start: 'top 85%' },
+                opacity: 0, y: 40, duration: 1, ease: 'power3.out'
+            });
+        });
+
+        // --- 3D. 3D TILT ON PROJECT CARDS ---
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.style.transformPerspective = '1000px';
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const relX = (e.clientX - rect.left) / rect.width - 0.5;
+                    const relY = (e.clientY - rect.top) / rect.height - 0.5;
+                    gsap.to(card, {
+                        rotateY: relX * 10,
+                        rotateX: -relY * 10,
+                        duration: 0.4,
+                        ease: 'power2.out',
+                        transformPerspective: 1000
+                    });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power3.out' });
+                });
+            });
+
+            document.querySelectorAll('#services .grid > div').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const relX = (e.clientX - rect.left) / rect.width - 0.5;
+                    const relY = (e.clientY - rect.top) / rect.height - 0.5;
+                    gsap.to(card, { rotateY: relX * 8, rotateX: -relY * 8, y: -6, duration: 0.4, ease: 'power2.out', transformPerspective: 800 });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { rotateY: 0, rotateX: 0, y: 0, duration: 0.6, ease: 'power3.out' });
+                });
+            });
         }
 
-        const modal = document.getElementById('project-modal');
-        function openModal(index) {
-            const proj = projectsData[index];
-            document.getElementById('modal-title').innerText = proj.title;
-            document.getElementById('modal-desc').innerText = proj.fullDesc;
-            document.getElementById('modal-category').innerText = proj.category;
-            
-            const statusEl = document.getElementById('modal-status');
-            statusEl.innerText = proj.status;
-            
-            document.getElementById('modal-banner-color').className = `absolute inset-0 bg-gradient-to-br opacity-70 ${proj.colorTheme || 'from-cyan-600 to-blue-500'}`;
-            document.getElementById('modal-image').src = proj.image;
-            
-            document.getElementById('modal-tech').innerHTML = proj.technologies.map(t => `<span class="text-xs px-3 py-1 bg-black/5 dark:bg-white/5 rounded-full border border-black/10 dark:border-white/10 text-slate-500 dark:text-slate-300">${t}</span>`).join('');
-            
-            document.getElementById('modal-github-link').href = proj.github;
-
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // --- 3E. MAGNETIC BUTTONS ---
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.querySelectorAll('a[href="#projects"], a[href^="mailto"], #theme-toggle').forEach(btn => {
+                btn.classList.add('magnetic-btn');
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const relX = e.clientX - rect.left - rect.width / 2;
+                    const relY = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, { x: relX * 0.3, y: relY * 0.3, duration: 0.3, ease: 'power2.out' });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+                });
+            });
         }
-        function closeModal() { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-        renderProjects();
+        // --- 4. ACTIVE NAV LINK HIGHLIGHTING ---
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
 
-        // ==========================================
-        // THREE.JS BACKGROUND WITH DYNAMIC COLOR
-        // ==========================================
-        const canvas = document.getElementById('bg-canvas');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute("id");
+                }
+            });
 
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 800;
-        const posArray = new Float32Array(particlesCount * 3);
-        for(let i = 0; i < particlesCount * 3; i++) { posArray[i] = (Math.random() - 0.5) * 12; }
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-        const getParticleColor = () => {
-            return document.documentElement.classList.contains('light-mode') ? 0x0ea5e9 : 0x4facfe; 
-        };
-
-        const material = new THREE.PointsMaterial({ size: 0.015, color: getParticleColor(), transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending });
-        const particlesMesh = new THREE.Points(particlesGeometry, material);
-        scene.add(particlesMesh);
-        camera.position.z = 3;
-
-        let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
-        const windowHalfX = window.innerWidth / 2, windowHalfY = window.innerHeight / 2;
-        document.addEventListener('mousemove', (event) => { mouseX = (event.clientX - windowHalfX); mouseY = (event.clientY - windowHalfY); });
-
-        const clock = new THREE.Clock();
-        function animate() {
-            requestAnimationFrame(animate);
-            particlesMesh.rotation.y = clock.getElapsedTime() * 0.03;
-            targetX = mouseX * 0.001; targetY = mouseY * 0.001;
-            particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
-            particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
-            renderer.render(scene, camera);
-        }
-        animate();
-        window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(current)) {
+                    link.classList.add("active");
+                }
+            });
+        });
     </script>
 </body>
 </html>
