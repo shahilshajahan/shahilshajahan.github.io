@@ -55,6 +55,9 @@
             --tag-bg: var(--accent-color);
             --tag-text: #111111;
             --tag-border: var(--accent-color); 
+            
+            /* EMAIL BOX BACKGROUND IN TOAST */
+            --email-box-bg: #fcf4f0;
         }
 
         .dark-theme {
@@ -85,6 +88,9 @@
             --tag-bg: var(--accent-color);
             --tag-text: #111111;
             --tag-border: var(--accent-color);
+            
+            /* EMAIL BOX BACKGROUND IN TOAST */
+            --email-box-bg: #111111;
         }
 
         /* HIDE SCROLLBAR FOR MOBILE TOP NAVBAR */
@@ -105,7 +111,7 @@
             background: radial-gradient(circle at 30% 30%, #ffffff 0%, var(--accent-color) 40%, #7a8a00 100%);
             border-radius: 50%;
             pointer-events: none;
-            z-index: 99999;
+            z-index: 9999999;
             transform: translate(-50%, -50%);
             box-shadow: 2px 4px 10px rgba(0,0,0,0.3), inset -2px -2px 6px rgba(0,0,0,0.2);
             transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background 0.2s;
@@ -117,7 +123,6 @@
             box-shadow: 4px 8px 15px rgba(0,0,0,0.4), inset -2px -2px 6px rgba(0,0,0,0.2);
         }
 
-        /* Default standard body to keep PC sidebar sticky smoothly */
         body, html {
             margin: 0;
             padding: 0;
@@ -216,7 +221,8 @@
         .hero-portrait { 
             position: absolute; 
             bottom: 0; 
-            right: -15%; 
+            /* FIXED: Moved from -15% to -4% to center the portrait more on small screens */
+            right: -4%; 
             height: 100%; 
             width: auto; 
             object-fit: contain;
@@ -413,7 +419,7 @@
         }
     </style>
 </head>
-<body class="flex flex-col md:flex-row min-h-screen">
+<body class="flex flex-col md:flex-row min-h-screen w-full max-w-full overflow-x-hidden md:overflow-visible">
 
     <!-- PRELOADER / INTRO -->
     <div id="preloader">
@@ -425,8 +431,7 @@
     <div class="custom-cursor hidden md:block" id="custom-cursor"></div>
 
     <!-- MOBILE TOP NAVBAR & PC LEFT SIDEBAR -->
-    <!-- FIXED: Added tight paddings (px-2 py-2.5) for mobile topbar to perfectly fit standard screen width -->
-    <aside class="sidebar w-full max-w-full md:w-[280px] lg:w-[320px] h-auto md:h-screen sticky top-0 z-50 flex flex-row md:flex-col justify-between md:justify-start items-center md:items-stretch px-2 py-2.5 md:p-6 border-b md:border-b-0 md:border-r border-[var(--border-color)]">
+    <aside class="sidebar w-full max-w-full md:w-[280px] lg:w-[320px] h-auto md:h-screen sticky md:sticky top-0 z-50 flex flex-row md:flex-col justify-between md:justify-start items-center md:items-stretch px-2 py-2.5 md:p-6 border-b md:border-b-0 md:border-r border-[var(--border-color)]">
         
         <!-- Wrapper for Nav elements -->
         <div class="flex flex-row md:flex-col items-center md:items-stretch gap-0 shrink-0 w-full md:w-auto">
@@ -457,14 +462,13 @@
             </div>
 
             <!-- Navigation Links -->
-            <!-- FIXED: w-full justify-between combined with smaller padding ensures 100% horizontal alignment within viewport -->
             <nav class="flex flex-row md:flex-col justify-between items-center md:items-stretch w-full md:w-auto shrink-0 md:space-y-1 mb-0">
                 <a href="#hero" class="nav-link active px-1.5 py-1.5 min-[375px]:px-2 text-[9px] min-[375px]:text-[10px] md:px-4 md:py-3 md:text-base whitespace-nowrap"><i class="fas fa-home md:w-8 mr-1 md:mr-0"></i> Home</a>
                 <a href="#projects" class="nav-link px-1.5 py-1.5 min-[375px]:px-2 text-[9px] min-[375px]:text-[10px] md:px-4 md:py-3 md:text-base whitespace-nowrap"><i class="fas fa-layer-group md:w-8 mr-1 md:mr-0"></i> Projects</a>
                 <a href="#services" class="nav-link px-1.5 py-1.5 min-[375px]:px-2 text-[9px] min-[375px]:text-[10px] md:px-4 md:py-3 md:text-base whitespace-nowrap"><i class="fas fa-bolt md:w-8 mr-1 md:mr-0"></i> Capabilities</a>
                 <a href="#about" class="nav-link px-1.5 py-1.5 min-[375px]:px-2 text-[9px] min-[375px]:text-[10px] md:px-4 md:py-3 md:text-base whitespace-nowrap"><i class="fas fa-user md:w-8 mr-1 md:mr-0"></i> About Me</a>
                 
-                <!-- MOBILE THEME SWITCH BUTTON (FIXED: Now placed precisely inline next to "About Me") -->
+                <!-- MOBILE THEME SWITCH BUTTON -->
                 <button id="theme-toggle-mobile" class="md:hidden flex items-center justify-center w-6 h-6 min-[375px]:w-7 min-[375px]:h-7 rounded-full bg-[var(--card-bg)] border border-[var(--border-color)] shadow-sm hover:bg-[var(--accent-color)] hover:text-black transition-colors shrink-0 cursor-none ml-1">
                     <!-- Content injected by JS -->
                 </button>
@@ -489,13 +493,13 @@
             </div>
             
             <!-- Email Button -->
-            <a href="mailto:shahilshajahan@proton.me?subject=Let's Work Together" class="block w-full bg-[var(--accent-color)] text-black text-center font-extrabold text-lg py-4 rounded-xl hover:bg-black hover:text-[var(--accent-color)] transition duration-300 shadow-sm">
+            <a href="mailto:shahilshajahan@proton.me?subject=Let's Work Together" id="pc-email-btn" class="block w-full bg-[var(--accent-color)] text-black text-center font-extrabold text-lg py-4 rounded-xl hover:bg-black hover:text-[var(--accent-color)] transition duration-300 shadow-sm cursor-none">
                 Email Me
             </a>
         </div>
     </aside>
 
-    <!-- MAIN SCROLLABLE CONTENT (FIXED: overflow-x-hidden strictly applies to the content block only) -->
+    <!-- MAIN SCROLLABLE CONTENT -->
     <main class="flex-1 w-full max-w-full relative overflow-x-hidden">
 
         <!-- 3D PARALLAX HERO SECTION -->
@@ -519,13 +523,11 @@
                 
                 <!-- Headline Quote Text restricted to left side -->
                 <div class="w-[85%] sm:w-[70%] lg:w-[60%] pointer-events-auto" id="parallax-text">
-                    <!-- FIXED: Reduced font-sizes purely for mobile so background SHAHIL is fully visible -->
                     <h2 class="text-2xl min-[375px]:text-[26px] sm:text-4xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-3 md:mb-6 transition-colors hero-title-text">
                         Code with <br>purpose. <br>
                         <span class="hero-subtitle-text">Build with <br>passion.</span>
                     </h2>
                     <div class="flex gap-3 sm:gap-6 mt-3 md:mt-6">
-                        <!-- FIXED: Button size made compact for mobile -->
                         <a href="#projects" style="background-color: var(--invert-btn-bg); color: var(--invert-btn-text);" class="px-4 py-2.5 md:px-8 md:py-4 rounded-full font-bold uppercase tracking-wide text-[10px] md:text-base hover:opacity-80 transition inline-block">View Work</a>
                     </div>
                 </div>
@@ -557,8 +559,9 @@
                                 <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">PowerShell</span>
                             </div>
                         </div>
-                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
-                            <img src="images/WinKit.png" alt="Shahil WinKit" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        <!-- FIXED: Removed h-64 and object-contain to make thumbnail scale naturally and eliminate black side bars -->
+                        <div class="project-image-wrapper w-full rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/WinKit.png" alt="Shahil WinKit" class="w-full h-auto opacity-80 group-hover:opacity-100 block">
                         </div>
                         <div class="relative pr-16">
                             <h3 class="text-3xl font-bold mb-2">Shahil WinKit</h3>
@@ -578,8 +581,8 @@
                                 <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">PowerShell</span>
                             </div>
                         </div>
-                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
-                            <img src="images/NetCutix.png" alt="Shahil NetCutix" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        <div class="project-image-wrapper w-full rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/NetCutix.png" alt="Shahil NetCutix" class="w-full h-auto opacity-80 group-hover:opacity-100 block">
                         </div>
                         <div class="relative pr-16">
                             <h3 class="text-3xl font-bold mb-2">Shahil NetCutix</h3>
@@ -599,8 +602,8 @@
                                 <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Python</span>
                             </div>
                         </div>
-                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
-                            <img src="images/live%20mic%20to%20speaker.png" alt="Live Mic" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        <div class="project-image-wrapper w-full rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/live%20mic%20to%20speaker.png" alt="Live Mic" class="w-full h-auto opacity-80 group-hover:opacity-100 block">
                         </div>
                         <div class="relative pr-16">
                             <h3 class="text-3xl font-bold mb-2">Live Mic to Speaker</h3>
@@ -620,8 +623,8 @@
                                 <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">C++</span>
                             </div>
                         </div>
-                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
-                            <img src="images/mi%2010i.png" alt="Firmware" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        <div class="project-image-wrapper w-full rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/mi%2010i.png" alt="Firmware" class="w-full h-auto opacity-80 group-hover:opacity-100 block">
                         </div>
                         <div class="relative pr-16">
                             <h3 class="text-3xl font-bold mb-2">Firmware for Xiaomi 10i</h3>
@@ -641,8 +644,8 @@
                                 <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Arduino</span>
                             </div>
                         </div>
-                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
-                            <img src="images/arduino%20rtc.png" alt="Arduino RTC" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        <div class="project-image-wrapper w-full rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/arduino%20rtc.png" alt="Arduino RTC" class="w-full h-auto opacity-80 group-hover:opacity-100 block">
                         </div>
                         <div class="relative pr-16">
                             <h3 class="text-3xl font-bold mb-2">Arduino RTC Switch</h3>
@@ -662,8 +665,8 @@
                                 <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Java</span>
                             </div>
                         </div>
-                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
-                            <img src="images/calculator.png" alt="Calculator" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        <div class="project-image-wrapper w-full rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/calculator.png" alt="Calculator" class="w-full h-auto opacity-80 group-hover:opacity-100 block">
                         </div>
                         <div class="relative pr-16">
                             <h3 class="text-3xl font-bold mb-2">Calculator App</h3>
@@ -683,8 +686,8 @@
                                 <span style="background-color: var(--badge-bg); color: var(--badge-text);" class="text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Python</span>
                             </div>
                         </div>
-                        <div class="project-image-wrapper w-full h-64 rounded-2xl overflow-hidden mb-8 bg-[#111]">
-                            <img src="images/movie%20ticket.png" alt="Movie Ticket" class="w-full h-full object-contain opacity-80 group-hover:opacity-100">
+                        <div class="project-image-wrapper w-full rounded-2xl overflow-hidden mb-8 bg-[#111]">
+                            <img src="images/movie%20ticket.png" alt="Movie Ticket" class="w-full h-auto opacity-80 group-hover:opacity-100 block">
                         </div>
                         <div class="relative pr-16">
                             <h3 class="text-3xl font-bold mb-2">Movie Ticket Booking</h3>
@@ -764,6 +767,21 @@ Core Interests: Software Development • Backend Engineering • Desktop Applica
             </a>
         </div>
 
+        <!-- EMAIL FALLBACK TOAST (PC ONLY) -->
+        <div id="email-toast" class="hidden md:flex fixed bottom-8 right-8 translate-y-[200%] opacity-0 z-[99999] bg-[var(--card-bg)] border border-[var(--border-color)] shadow-2xl rounded-2xl p-5 flex-col gap-3 w-80 transition-all duration-500 ease-out">
+            <div class="flex justify-between items-center">
+                <span class="font-bold text-[var(--text-color)] text-sm flex items-center gap-2">
+                    <i class="fas fa-envelope text-[var(--accent-color)] bg-black px-1.5 py-1 rounded-md"></i> Mail app didn't open?
+                </span>
+                <button id="close-toast" class="text-[var(--text-muted)] hover:text-red-500 transition-colors text-lg cursor-none">&times;</button>
+            </div>
+            <p class="text-xs text-[var(--text-muted)] font-medium">No default mail client configured? You can manually copy my email address below.</p>
+            <div class="flex items-center justify-between p-2.5 rounded-xl border border-[var(--border-color)]" style="background-color: var(--email-box-bg);">
+                <span class="text-xs font-bold text-[var(--text-color)] tracking-wide" id="email-text">shahilshajahan@proton.me</span>
+                <button id="copy-email-btn" class="bg-[var(--accent-color)] text-black px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-black hover:text-[var(--accent-color)] transition-colors cursor-none shadow-sm">Copy</button>
+            </div>
+        </div>
+
     </main>
 
     <!-- SCRIPTS -->
@@ -780,7 +798,6 @@ Core Interests: Software Development • Backend Engineering • Desktop Applica
                 ? `<span><i class="fas fa-sun mr-2"></i> Light Mode</span><i class="fas fa-toggle-on text-[var(--accent-color)] text-lg"></i>`
                 : `<span><i class="fas fa-moon mr-2"></i> Dark Mode</span><i class="fas fa-toggle-off text-gray-400 text-lg"></i>`;
             
-            // Adjusting icon size perfectly for the new compact inline button
             const mobileHTML = isDark 
                 ? `<i class="fas fa-sun text-[var(--accent-color)] text-[10px] min-[375px]:text-xs"></i>`
                 : `<i class="fas fa-moon text-gray-600 text-[10px] min-[375px]:text-xs"></i>`;
@@ -978,6 +995,51 @@ Core Interests: Software Development • Backend Engineering • Desktop Applica
                 }
             });
         });
+
+        // --- 5. EMAIL FALLBACK TOAST LOGIC (PC ONLY) ---
+        const pcEmailBtn = document.getElementById('pc-email-btn');
+        const emailToast = document.getElementById('email-toast');
+        const closeToastBtn = document.getElementById('close-toast');
+        const copyEmailBtn = document.getElementById('copy-email-btn');
+        const emailText = document.getElementById('email-text');
+        
+        let toastTimeout; 
+
+        if (pcEmailBtn && emailToast) {
+            pcEmailBtn.addEventListener('click', () => {
+                setTimeout(() => {
+                    emailToast.classList.remove('translate-y-[200%]', 'opacity-0');
+                    emailToast.classList.add('translate-y-0', 'opacity-100');
+                    
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => {
+                        emailToast.classList.remove('translate-y-0', 'opacity-100');
+                        emailToast.classList.add('translate-y-[200%]', 'opacity-0');
+                    }, 10000);
+                    
+                }, 600);
+            });
+        }
+
+        if (closeToastBtn && emailToast) {
+            closeToastBtn.addEventListener('click', () => {
+                emailToast.classList.remove('translate-y-0', 'opacity-100');
+                emailToast.classList.add('translate-y-[200%]', 'opacity-0');
+                clearTimeout(toastTimeout); 
+            });
+        }
+
+        if (copyEmailBtn && emailText) {
+            copyEmailBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(emailText.innerText).then(() => {
+                    const originalText = copyEmailBtn.innerText;
+                    copyEmailBtn.innerText = 'Copied!';
+                    setTimeout(() => {
+                        copyEmailBtn.innerText = originalText;
+                    }, 2000);
+                });
+            });
+        }
     </script>
 </body>
 </html>
