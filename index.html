@@ -117,7 +117,7 @@
             box-shadow: 4px 8px 15px rgba(0,0,0,0.4), inset -2px -2px 6px rgba(0,0,0,0.2);
         }
 
-        /* Body restored to default to allow sticky sidebar on PC */
+        /* Default standard body to keep PC sidebar sticky smoothly */
         body, html {
             margin: 0;
             padding: 0;
@@ -425,11 +425,11 @@
     <div class="custom-cursor hidden md:block" id="custom-cursor"></div>
 
     <!-- MOBILE TOP NAVBAR & PC LEFT SIDEBAR -->
-    <!-- PC sidebar restored to stable sticky top-0 without overflow-x-hidden breaking it -->
-    <aside class="sidebar w-full md:w-[280px] lg:w-[320px] h-auto md:h-screen sticky top-0 z-50 flex flex-row md:flex-col justify-between md:justify-start items-center md:items-stretch p-3 md:p-6 overflow-x-auto no-scrollbar md:overflow-y-auto border-b md:border-b-0 md:border-r border-[var(--border-color)]">
+    <!-- FIXED: Added tight paddings (px-2 py-2.5) for mobile topbar to perfectly fit standard screen width -->
+    <aside class="sidebar w-full max-w-full md:w-[280px] lg:w-[320px] h-auto md:h-screen sticky top-0 z-50 flex flex-row md:flex-col justify-between md:justify-start items-center md:items-stretch px-2 py-2.5 md:p-6 border-b md:border-b-0 md:border-r border-[var(--border-color)]">
         
         <!-- Wrapper for Nav elements -->
-        <div class="flex flex-row md:flex-col items-center md:items-stretch gap-2 md:gap-0 shrink-0 w-full md:w-auto">
+        <div class="flex flex-row md:flex-col items-center md:items-stretch gap-0 shrink-0 w-full md:w-auto">
             
             <!-- LOGO AREA -->
             <div class="hidden md:block bg-gray-100 dark:bg-gray-800 rounded-lg md:rounded-xl p-2 px-3 md:p-6 mb-0 md:mb-8 relative overflow-hidden group hover:bg-[var(--accent-color)] transition-colors duration-500 shrink-0">
@@ -456,15 +456,16 @@
                 </div>
             </div>
 
-            <!-- Navigation Links (FIXED: Adjusting evenly on mobile and adding inline theme toggle) -->
-            <nav class="flex flex-row md:flex-col gap-1 sm:gap-2 md:gap-0 md:space-y-1 mb-0 w-full md:w-auto items-center md:items-stretch justify-between shrink-0">
-                <a href="#hero" class="nav-link active px-2.5 py-1.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-base whitespace-nowrap"><i class="fas fa-home md:w-8 mr-1 md:mr-0"></i> Home</a>
-                <a href="#projects" class="nav-link px-2.5 py-1.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-base whitespace-nowrap"><i class="fas fa-layer-group md:w-8 mr-1 md:mr-0"></i> Projects</a>
-                <a href="#services" class="nav-link px-2.5 py-1.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-base whitespace-nowrap"><i class="fas fa-bolt md:w-8 mr-1 md:mr-0"></i> Capabilities</a>
-                <a href="#about" class="nav-link px-2.5 py-1.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-base whitespace-nowrap"><i class="fas fa-user md:w-8 mr-1 md:mr-0"></i> About Me</a>
+            <!-- Navigation Links -->
+            <!-- FIXED: w-full justify-between combined with smaller padding ensures 100% horizontal alignment within viewport -->
+            <nav class="flex flex-row md:flex-col justify-between items-center md:items-stretch w-full md:w-auto shrink-0 md:space-y-1 mb-0">
+                <a href="#hero" class="nav-link active px-1.5 py-1.5 min-[375px]:px-2 text-[9px] min-[375px]:text-[10px] md:px-4 md:py-3 md:text-base whitespace-nowrap"><i class="fas fa-home md:w-8 mr-1 md:mr-0"></i> Home</a>
+                <a href="#projects" class="nav-link px-1.5 py-1.5 min-[375px]:px-2 text-[9px] min-[375px]:text-[10px] md:px-4 md:py-3 md:text-base whitespace-nowrap"><i class="fas fa-layer-group md:w-8 mr-1 md:mr-0"></i> Projects</a>
+                <a href="#services" class="nav-link px-1.5 py-1.5 min-[375px]:px-2 text-[9px] min-[375px]:text-[10px] md:px-4 md:py-3 md:text-base whitespace-nowrap"><i class="fas fa-bolt md:w-8 mr-1 md:mr-0"></i> Capabilities</a>
+                <a href="#about" class="nav-link px-1.5 py-1.5 min-[375px]:px-2 text-[9px] min-[375px]:text-[10px] md:px-4 md:py-3 md:text-base whitespace-nowrap"><i class="fas fa-user md:w-8 mr-1 md:mr-0"></i> About Me</a>
                 
-                <!-- MOBILE THEME SWITCH BUTTON (FIXED: Now perfectly next to 'About Me' link) -->
-                <button id="theme-toggle-mobile" class="md:hidden flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[var(--card-bg)] border border-[var(--border-color)] shadow-sm hover:bg-[var(--accent-color)] hover:text-black transition-colors shrink-0 cursor-none">
+                <!-- MOBILE THEME SWITCH BUTTON (FIXED: Now placed precisely inline next to "About Me") -->
+                <button id="theme-toggle-mobile" class="md:hidden flex items-center justify-center w-6 h-6 min-[375px]:w-7 min-[375px]:h-7 rounded-full bg-[var(--card-bg)] border border-[var(--border-color)] shadow-sm hover:bg-[var(--accent-color)] hover:text-black transition-colors shrink-0 cursor-none ml-1">
                     <!-- Content injected by JS -->
                 </button>
             </nav>
@@ -494,8 +495,8 @@
         </div>
     </aside>
 
-    <!-- MAIN SCROLLABLE CONTENT (FIXED: overflow-x-hidden added here to prevent horizontal scroll without breaking sticky sidebar) -->
-    <main class="flex-1 w-full relative overflow-x-hidden">
+    <!-- MAIN SCROLLABLE CONTENT (FIXED: overflow-x-hidden strictly applies to the content block only) -->
+    <main class="flex-1 w-full max-w-full relative overflow-x-hidden">
 
         <!-- 3D PARALLAX HERO SECTION -->
         <section id="hero" class="hero-section">
@@ -518,12 +519,14 @@
                 
                 <!-- Headline Quote Text restricted to left side -->
                 <div class="w-[85%] sm:w-[70%] lg:w-[60%] pointer-events-auto" id="parallax-text">
-                    <h2 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-4 md:mb-6 transition-colors hero-title-text">
+                    <!-- FIXED: Reduced font-sizes purely for mobile so background SHAHIL is fully visible -->
+                    <h2 class="text-2xl min-[375px]:text-[26px] sm:text-4xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-3 md:mb-6 transition-colors hero-title-text">
                         Code with <br>purpose. <br>
                         <span class="hero-subtitle-text">Build with <br>passion.</span>
                     </h2>
-                    <div class="flex gap-4 sm:gap-6 mt-4 md:mt-6">
-                        <a href="#projects" style="background-color: var(--invert-btn-bg); color: var(--invert-btn-text);" class="px-6 py-3 md:px-8 md:py-4 rounded-full font-bold uppercase tracking-wide text-sm md:text-base hover:opacity-80 transition inline-block">View Work</a>
+                    <div class="flex gap-3 sm:gap-6 mt-3 md:mt-6">
+                        <!-- FIXED: Button size made compact for mobile -->
+                        <a href="#projects" style="background-color: var(--invert-btn-bg); color: var(--invert-btn-text);" class="px-4 py-2.5 md:px-8 md:py-4 rounded-full font-bold uppercase tracking-wide text-[10px] md:text-base hover:opacity-80 transition inline-block">View Work</a>
                     </div>
                 </div>
             </div>
@@ -777,9 +780,10 @@ Core Interests: Software Development • Backend Engineering • Desktop Applica
                 ? `<span><i class="fas fa-sun mr-2"></i> Light Mode</span><i class="fas fa-toggle-on text-[var(--accent-color)] text-lg"></i>`
                 : `<span><i class="fas fa-moon mr-2"></i> Dark Mode</span><i class="fas fa-toggle-off text-gray-400 text-lg"></i>`;
             
+            // Adjusting icon size perfectly for the new compact inline button
             const mobileHTML = isDark 
-                ? `<i class="fas fa-sun text-[var(--accent-color)] text-lg"></i>`
-                : `<i class="fas fa-moon text-gray-600 text-lg"></i>`;
+                ? `<i class="fas fa-sun text-[var(--accent-color)] text-[10px] min-[375px]:text-xs"></i>`
+                : `<i class="fas fa-moon text-gray-600 text-[10px] min-[375px]:text-xs"></i>`;
             
             if (themeToggleBtn) themeToggleBtn.innerHTML = desktopHTML;
             if (themeToggleMobileBtn) themeToggleMobileBtn.innerHTML = mobileHTML;
